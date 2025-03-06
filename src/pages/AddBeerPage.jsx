@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 
 function AddBeerPage() {
@@ -27,14 +28,39 @@ function AddBeerPage() {
   // 1. Create a function to handle the form submission and send the form data to the Beers API to create a new beer.
   // 2. Use axios to make a POST request to the Beers API.
   // 3. Once the beer is created, navigate the user to the page showing the list of all beers.
+  const handleFormSubmit =  (e) => {
+    
+    
+    e.preventDefault();
+    const numAttenuationLevel = parseInt(attenuationLevel)
+    console.log(attenuationLevel)
+    axios.post(`https://ih-beers-api2.herokuapp.com/beers/new`,{
+      name: name,
+      tagline: tagline,
+      description: description,
+      image_url: imageUrl,
+      first_brews: firstBrewed,
+      brewers_tips: brewersTips,
+      attenuation_level: parseInt(attenuationLevel), //!como el attenuantionlevel es un string con el parseint combierte el string en number
+      contributed_by: contributedBy
 
+    })
+    .then(() => {
+    
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+
+
+  }
 
 
   // Structure and the content of the page showing the form for adding a new beer. You can leave this as it is.
   return (
     <>
       <div className="d-inline-flex flex-column w-100 p-4">
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <label>Name</label>
           <input
             className="form-control mb-4"
